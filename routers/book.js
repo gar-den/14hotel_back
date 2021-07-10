@@ -1,10 +1,10 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Book = require("../schemas/book");
-const Room = require("../schemas/room");
+const Book = require('../schemas/book');
+const Room = require('../schemas/room');
 
-router.post("/", async (req, res) => {
-  const { roomId, adult, kid, startDate, endDate } = req.body;
+router.post('/', async (req, res) => {
+  let { roomId, adult, kid, startDate, endDate } = req.body;
 
   endDate = new Date(endDate);
   startDate = new Date(startDate);
@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   const books = await Book.find({});
 
   console.log(books);
@@ -45,7 +45,7 @@ router.get("/", async (req, res) => {
   res.send({ books });
 });
 
-router.put("/:bookId", async (req, res) => {
+router.put('/:bookId', async (req, res) => {
   const { bookId: _id } = req.params;
   try {
     const isExist = await Book.exists({ _id });
@@ -64,7 +64,7 @@ router.put("/:bookId", async (req, res) => {
   }
 });
 
-router.delete("/:bookId", async (req, res) => {
+router.delete('/:bookId', async (req, res) => {
   const { bookId: _id } = req.params;
   try {
     const isExist = await Book.exists({ _id });
