@@ -4,7 +4,7 @@ const Book = require('../schemas/book');
 const Room = require('../schemas/room');
 
 router.post('/', async (req, res) => {
-  let { roomId, adult, kid, startDate, endDate } = req.body;
+  const { roomId, adult, kid, startDate, endDate } = req.body;
 
   endDate = new Date(endDate);
   startDate = new Date(startDate);
