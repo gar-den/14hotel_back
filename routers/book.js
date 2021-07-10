@@ -13,9 +13,9 @@ router.post("/", async (req, res) => {
 
   try {
     const isRoomExist = await Room.findOne({ _id: roomId });
-
     if (!isRoomExist) {
-      return res.status(401).json({ message: false });
+      // return res.status(401).json({ message: "fail" });
+      return res.json({ message: "fail" });
     }
 
     const tempPrice = isRoomExist.price;
@@ -30,11 +30,10 @@ router.post("/", async (req, res) => {
       price,
     });
 
-    return res.json({ message: true, bookId: book._id });
+    return res.json({ message: "success", bookId: book._id });
   } catch (e) {
     console.log(e);
-
-    return res.status(500).json({ message: false });
+    return res.json({ message: "fail" });
   }
 });
 
@@ -43,33 +42,43 @@ router.get("/", async (req, res) => {
 
   console.log(books);
 
-  res.send({ books });
+  res.json({ books });
 });
 
 router.get("/:bookId", async (req, res) => {
   const bookId = req.params.bookId;
-  console.log(bookId)
+  console.log(bookId);
   const book = await Book.findById(bookId);
 
-  res.send({ book });
+  res.json({ book });
 });
 
 router.put("/:bookId", async (req, res) => {
   const { bookId: _id } = req.params;
+
+  let validate = [];
+  for (let item in req.body) {
+    req.body[item].length !== 0;
+    validate.push(item);
+  }
+
+  if (validate.length === 0) return res.json({ message: "fail" });
+
   try {
     const isExist = await Book.exists({ _id });
     if (!isExist) {
-      return res.status(404).json({ message: false });
+      // return res.status(404).json({ message: "fail" });
+      return res.json({ message: "fail" });
     }
 
     console.log(isExist);
 
     await Book.updateOne({ _id }, { $set: req.body });
 
-    return res.json({ message: true });
+    return res.json({ message: "success" });
   } catch (e) {
     console.log(e);
-    return res.status(500).json({ message: false });
+    return res.json({ message: "fail" });
   }
 });
 
@@ -78,14 +87,15 @@ router.delete("/:bookId", async (req, res) => {
   try {
     const isExist = await Book.exists({ _id });
     if (!isExist) {
-      return res.status(404).json({ message: false });
+      return res.status(404).json({ message: "fail" });
+      return res.json({ message: "fail" });
     }
 
     await Book.remove({ _id });
-    return res.json({ message: true });
+    return res.json({ message: "success" });
   } catch (e) {
     console.log(e);
-    return res.status(500).json({ message: false });
+    return res.json({ message: "fail" });
   }
 });
 
