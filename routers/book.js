@@ -3,14 +3,9 @@ const express = require('express');
 const router = express.Router();
 const Book = require('../schemas/book');
 const Room = require('../schemas/room');
+const { authMiddleWare } = require('../middleWare');
 
-<<<<<<< HEAD
-router.post('/', async (req, res) => {
-=======
-const { authMiddleWare } = require("../middleWare");
-
-router.post("/", authMiddleWare, async (req, res) => {
->>>>>>> df54777f6f5ba2b1798a5b451a36dd2e7c4bb896
+router.post('/', authMiddleWare, async (req, res) => {
   let { roomId, adult, kid, startDate, endDate } = req.body;
 
   endDate = new Date(endDate);
@@ -35,13 +30,8 @@ router.post("/", authMiddleWare, async (req, res) => {
       adult,
       kid,
       price,
-<<<<<<< HEAD
       userId,
-    }).populate({ path: 'userId', select: 'nickname' });
-=======
-      userId
     });
->>>>>>> df54777f6f5ba2b1798a5b451a36dd2e7c4bb896
 
     return res.json({
       message: 'success',
@@ -54,11 +44,7 @@ router.post("/", authMiddleWare, async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-router.get('/', async (req, res) => {
-=======
-router.get("/", authMiddleWare, async (req, res) => {
->>>>>>> df54777f6f5ba2b1798a5b451a36dd2e7c4bb896
+router.get('/', authMiddleWare, async (req, res) => {
   const books = await Book.find({}).populate({
     path: 'userId',
     select: 'nickname',
@@ -66,11 +52,7 @@ router.get("/", authMiddleWare, async (req, res) => {
   return res.json({ books });
 });
 
-<<<<<<< HEAD
-router.get('/:bookId', async (req, res) => {
-=======
-router.get("/:bookId", authMiddleWare, async (req, res) => {
->>>>>>> df54777f6f5ba2b1798a5b451a36dd2e7c4bb896
+router.get('/:bookId', authMiddleWare, async (req, res) => {
   const bookId = req.params.bookId;
   const book = await Book.findById(bookId).populate({
     path: 'userId',
@@ -80,16 +62,12 @@ router.get("/:bookId", authMiddleWare, async (req, res) => {
   res.json({ book });
 });
 
-<<<<<<< HEAD
-router.put('/:bookId', async (req, res) => {
-=======
-router.put("/:bookId", authMiddleWare, async (req, res) => {
->>>>>>> df54777f6f5ba2b1798a5b451a36dd2e7c4bb896
+router.put('/:bookId', authMiddleWare, async (req, res) => {
   const { bookId: _id } = req.params;
 
   const userId = await Book.findById(_id).userId;
   if (res.locals.user.userId != userId) {
-    res.status(501).json({ err: err, message: "fail" });
+    res.status(501).json({ err: err, message: 'fail' });
   }
 
   let validate = [];
@@ -133,18 +111,14 @@ router.put("/:bookId", authMiddleWare, async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-router.delete('/:bookId', async (req, res) => {
-=======
-router.delete("/:bookId", authMiddleWare, async (req, res) => {
->>>>>>> df54777f6f5ba2b1798a5b451a36dd2e7c4bb896
+router.delete('/:bookId', authMiddleWare, async (req, res) => {
   const { bookId: _id } = req.params;
 
   const userId = await Book.findById(_id).userId;
   if (res.locals.user.userId != userId) {
-    res.status(501).json({ err: err, message: "fail" });
+    res.status(501).json({ err: err, message: 'fail' });
   }
-  
+
   try {
     const isExist = await Book.exists({ _id });
     if (!isExist) {
