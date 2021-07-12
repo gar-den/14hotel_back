@@ -4,6 +4,7 @@ const express = require("express");
 const { authMiddleWare } = require("../middleWare");
 const router = express.Router();
 const Reviews = require("../schemas/review");
+const Users = require("../schemas/user");
 
 
 
@@ -58,6 +59,11 @@ router.put("/:reviewId", authMiddleWare, async (req, res, next) => {
   const { reviewId } = req.params;
   const { title, content } = req.body;
 
+  const userId = await Reviews.findById(reviewId).userId;
+  if (res.locals.user.userId != userId) {
+    res.status(501).json({ err: err, message: "fail" });
+  }
+
     try {
         await Reviews.updateOne({ _id: reviewId }, {$set: {title, content, date: new Date()}});
 
@@ -65,12 +71,17 @@ router.put("/:reviewId", authMiddleWare, async (req, res, next) => {
     } catch (err) {
         res.status(501).json({ err: err, message: "fail" });
     }
-        
+
 });
 
 // 리뷰 하나 삭제하기
 router.delete("/:reviewId", authMiddleWare, async (req, res, next) => {
   const { reviewId } = req.params;
+
+  const userId = await Reviews.findById(reviewId).userId;
+  if (res.locals.user.userId != userId) {
+    res.status(501).json({ err: err, message: "fail" });
+  }
 
     try {
         await Reviews.deleteOne({ _id: reviewId });

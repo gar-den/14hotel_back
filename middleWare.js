@@ -39,9 +39,17 @@ exports.authMiddleWare = (req, res, next) => {
       User.findOne({ nickname }).then((result) => {
         res.locals.user = result;
         next();
+
+        return;
       });
+    } else {
+      res.json({ message: "fail" });
+
+      return;
     }
   } catch (e) {
-    return res.json({ message: "fail" });
+    res.json({ message: "fail" });
+
+    return;
   }
 };
