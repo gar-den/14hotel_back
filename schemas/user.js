@@ -17,12 +17,12 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
-UserSchema.virtual('userId').get(() => {
-    return this._id.toHexString();
-}); // make front-end refer this value
+// UserSchema.virtual('userId').get(() => {
+//     return this._id.toHexString();
+// }); // make front-end refer this value
 
-UserSchema.set("toJSON", {
-    vituals: true,
-});
+// UserSchema.set("toJSON", {
+//     vituals: true,
+// });
 
 module.exports = mongoose.model("User", UserSchema);
