@@ -65,6 +65,8 @@ router.get('/:bookId', authMiddleWare, async (req, res) => {
 router.put('/:bookId', authMiddleWare, async (req, res) => {
   const { bookId: _id } = req.params;
 
+<<<<<<< HEAD
+=======
   const userId = await Book.findById(_id).userId;
 
   if (res.locals.user.userId != userId || !userId) {
@@ -72,30 +74,65 @@ router.put('/:bookId', authMiddleWare, async (req, res) => {
 
   }
 
+>>>>>>> d1e2914cedbc87e18eee0031906ebc5ab15a0ae5
   let validate = [];
   for (let item in req.body) {
     if (req.body[item].length !== 0) validate.push(item);
   }
 
   if (validate.length === 0) return res.json({ message: 'fail' });
+<<<<<<< HEAD
+
+  const book = await Book.findOne({_id: _id})
+  const userId = book.userId;
+
+  if (String(userId) !== String(res.locals.user._id)) {
+    res.status(501).json({ message: "fail" });
+
+    return;
+  }
+=======
+>>>>>>> d1e2914cedbc87e18eee0031906ebc5ab15a0ae5
 
   try {
     const isExist = await Book.exists({ _id });
+    console.log("isExist:", isExist);
     if (!isExist) {
+<<<<<<< HEAD
+      res.json({ message: "fail" });
+
+      return;
+=======
       return res.json({ message: 'fail' });
+>>>>>>> d1e2914cedbc87e18eee0031906ebc5ab15a0ae5
     }
 
     let { roomId, adult, kid, startDate, endDate } = req.body;
 
+    if (startDate || endDate) {
+
+    }
+
+    console.log(startDate, endDate);
+
     endDate = new Date(endDate);
     startDate = new Date(startDate);
 
+    console.log("start, end", startDate, endDate);
+
     difference = (endDate - startDate) / (1000 * 60 * 60 * 24);
 
+    console.log("differenct:", difference)
+
     const isRoomExist = await Room.findOne({ _id: roomId });
+    console.log("room:", isRoomExist);
     if (!isRoomExist) {
+<<<<<<< HEAD
+      return res.json({ message: "fail" });
+=======
       // return res.status(401).json({ message: "fail" });
       return res.json({ message: 'fail' });
+>>>>>>> d1e2914cedbc87e18eee0031906ebc5ab15a0ae5
     }
 
     const tempPrice = isRoomExist.price;
@@ -116,11 +153,21 @@ router.put('/:bookId', authMiddleWare, async (req, res) => {
 router.delete('/:bookId', authMiddleWare, async (req, res) => {
   const { bookId: _id } = req.params;
 
+<<<<<<< HEAD
+  const book = await Book.findOne({_id: _id})
+  const userId = book.userId;
+
+  if (String(userId) !== String(res.locals.user._id)) {
+    res.status(501).json({ message: "fail" });
+
+    return;
+=======
   const userId = await Book.findById(_id).userId;
 
   if (res.locals.user.userId != userId || !userId) {
     res.status(501).json({ err: err, message: "fail" });
 
+>>>>>>> d1e2914cedbc87e18eee0031906ebc5ab15a0ae5
   }
 
   try {

@@ -1,3 +1,5 @@
+'use strict';
+
 const mongoose = require("mongoose");
 
 const BookSchema = new mongoose.Schema({
@@ -42,12 +44,12 @@ const BookSchema = new mongoose.Schema({
   },
 });
 
-BookSchema.virtual("bookId").get(() => {
-  return this._id.toHexString();
-}); // make front-end refer this value
+// BookSchema.virtual("bookId").get(() => {
+//   return this._id.toHexString();
+// }); // make front-end refer this value
 
-BookSchema.set("toJSON", {
-  vituals: true,
-});
+// BookSchema.set("toJSON", {
+//   vituals: true,
+// });
 
 module.exports = mongoose.model("Book", BookSchema);

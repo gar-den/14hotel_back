@@ -16,12 +16,12 @@ const RoomSchema = new mongoose.Schema({
   },
 });
 
-RoomSchema.virtual("roomId").get(() => {
-  return this._id.toHexString();
-}); // make front-end refer this value
+// RoomSchema.virtual("roomId").get(() => {
+//   return this._id.toHexString();
+// }); // make front-end refer this value
 
-RoomSchema.set("toJSON", {
-  vituals: true,
-});
+// RoomSchema.set("toJSON", {
+//   vituals: true,
+// });
 
 module.exports = mongoose.model("Room", RoomSchema);
