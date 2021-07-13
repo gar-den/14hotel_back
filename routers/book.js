@@ -1,12 +1,11 @@
 //안녕하세요잘 가셪가셨습니다.
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Book = require("../schemas/book");
-const Room = require("../schemas/room");
+const Book = require('../schemas/book');
+const Room = require('../schemas/room');
+const { authMiddleWare } = require('../middleWare');
 
-const { authMiddleWare } = require("../middleWare");
-
-router.post("/", authMiddleWare, async (req, res) => {
+router.post('/', authMiddleWare, async (req, res) => {
   let { roomId, adult, kid, startDate, endDate } = req.body;
 
   endDate = new Date(endDate);
@@ -18,7 +17,7 @@ router.post("/", authMiddleWare, async (req, res) => {
     const isRoomExist = await Room.findOne({ _id: roomId });
     if (!isRoomExist) {
       // return res.status(401).json({ message: "fail" });
-      return res.json({ message: "fail" });
+      return res.json({ message: 'fail' });
     }
 
     const tempPrice = isRoomExist.price;
@@ -31,45 +30,46 @@ router.post("/", authMiddleWare, async (req, res) => {
       adult,
       kid,
       price,
-      userId
+      userId,
     });
 
     return res.json({
-      message: "success",
+      message: 'success',
       bookId: book._id,
       nickname: res.locals.user.nickname,
     });
   } catch (e) {
     console.log(e);
-    return res.json({ message: "fail" });
+    return res.json({ message: 'fail' });
   }
 });
 
-router.get("/", authMiddleWare, async (req, res) => {
+router.get('/', authMiddleWare, async (req, res) => {
   const books = await Book.find({}).populate({
-    path: "userId",
-    select: "nickname",
+    path: 'userId',
+    select: 'nickname',
   });
   return res.json({ books });
 });
 
-router.get("/:bookId", authMiddleWare, async (req, res) => {
+router.get('/:bookId', authMiddleWare, async (req, res) => {
   const bookId = req.params.bookId;
   const book = await Book.findById(bookId).populate({
-    path: "userId",
-    select: "nickname",
+    path: 'userId',
+    select: 'nickname',
   });
 
   res.json({ book });
 });
 
-router.put("/:bookId", authMiddleWare, async (req, res) => {
+router.put('/:bookId', authMiddleWare, async (req, res) => {
   const { bookId: _id } = req.params;
 
   const userId = await Book.findById(_id).userId;
-  console.log(userId);
+
   if (res.locals.user.userId != userId || !userId) {
     res.status(501).json({ err: err, message: "fail" });
+
   }
 
   let validate = [];
@@ -77,12 +77,12 @@ router.put("/:bookId", authMiddleWare, async (req, res) => {
     if (req.body[item].length !== 0) validate.push(item);
   }
 
-  if (validate.length === 0) return res.json({ message: "fail" });
+  if (validate.length === 0) return res.json({ message: 'fail' });
 
   try {
     const isExist = await Book.exists({ _id });
     if (!isExist) {
-      return res.json({ message: "fail" });
+      return res.json({ message: 'fail' });
     }
 
     let { roomId, adult, kid, startDate, endDate } = req.body;
@@ -95,7 +95,7 @@ router.put("/:bookId", authMiddleWare, async (req, res) => {
     const isRoomExist = await Room.findOne({ _id: roomId });
     if (!isRoomExist) {
       // return res.status(401).json({ message: "fail" });
-      return res.json({ message: "fail" });
+      return res.json({ message: 'fail' });
     }
 
     const tempPrice = isRoomExist.price;
@@ -106,32 +106,34 @@ router.put("/:bookId", authMiddleWare, async (req, res) => {
       { $set: { adult, kid, startDate, endDate, price } }
     );
 
-    return res.json({ message: "success" });
+    return res.json({ message: 'success' });
   } catch (e) {
     console.log(e);
-    return res.json({ message: "fail" });
+    return res.json({ message: 'fail' });
   }
 });
 
-router.delete("/:bookId", authMiddleWare, async (req, res) => {
+router.delete('/:bookId', authMiddleWare, async (req, res) => {
   const { bookId: _id } = req.params;
 
   const userId = await Book.findById(_id).userId;
+
   if (res.locals.user.userId != userId || !userId) {
     res.status(501).json({ err: err, message: "fail" });
+
   }
-  
+
   try {
     const isExist = await Book.exists({ _id });
     if (!isExist) {
-      return res.status(404).json({ message: "fail" });
+      return res.status(404).json({ message: 'fail' });
     }
 
     await Book.remove({ _id });
-    return res.json({ message: "success" });
+    return res.json({ message: 'success' });
   } catch (e) {
     console.log(e);
-    return res.json({ message: "fail" });
+    return res.json({ message: 'fail' });
   }
 });
 
