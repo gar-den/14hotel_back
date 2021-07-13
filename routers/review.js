@@ -60,7 +60,7 @@ router.put("/:reviewId", authMiddleWare, async (req, res, next) => {
   const { title, content } = req.body;
 
   const userId = await Reviews.findById(reviewId).userId;
-  if (res.locals.user.userId != userId) {
+  if (res.locals.user.userId != userId || !userId) {
     res.status(501).json({ err: err, message: "fail" });
   }
 
@@ -79,7 +79,7 @@ router.delete("/:reviewId", authMiddleWare, async (req, res, next) => {
   const { reviewId } = req.params;
 
   const userId = await Reviews.findById(reviewId).userId;
-  if (res.locals.user.userId != userId) {
+  if (res.locals.user.userId != userId || !userId) {
     res.status(501).json({ err: err, message: "fail" });
   }
 

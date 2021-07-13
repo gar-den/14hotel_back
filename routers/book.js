@@ -67,7 +67,8 @@ router.put("/:bookId", authMiddleWare, async (req, res) => {
   const { bookId: _id } = req.params;
 
   const userId = await Book.findById(_id).userId;
-  if (res.locals.user.userId != userId) {
+  console.log(userId);
+  if (res.locals.user.userId != userId || !userId) {
     res.status(501).json({ err: err, message: "fail" });
   }
 
@@ -116,7 +117,7 @@ router.delete("/:bookId", authMiddleWare, async (req, res) => {
   const { bookId: _id } = req.params;
 
   const userId = await Book.findById(_id).userId;
-  if (res.locals.user.userId != userId) {
+  if (res.locals.user.userId != userId || !userId) {
     res.status(501).json({ err: err, message: "fail" });
   }
   
