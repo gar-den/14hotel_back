@@ -7,6 +7,7 @@ const ReviewSchema = new mongoose.Schema({
     ref: "User",
     require: true,
   },
+  nickname: String,
   date: String,
   title: String,
   content: String,
