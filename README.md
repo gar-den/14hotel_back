@@ -1,8 +1,9 @@
-# 14 hotel
+# hotelfourteen
 - Node.js express framework + REACT
 - mongodb
-[homepage]()
 
+- [homepage](http://hotelfourteen.shop)
+- [REACT git](https://github.com/skdud4659/HotelFourteen_Front)
 
 # packages
 - mongoose
@@ -24,6 +25,7 @@
 - routers: router for urls, APIs
 - schemas: for DB
 - views: for test
+- tests: 기능별 jest
 
 # DB schema
 - index.js: 
