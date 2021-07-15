@@ -26,6 +26,7 @@
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.2",
+    "swagger": "^0.7.5",
     "virtual": "^0.2.0"
   },
   "devDependencies": {
