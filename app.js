@@ -5,10 +5,8 @@ const port = 3000;
 
 const cors = require("cors");
 const allowedOrigins = [
-  'http://localhost:3000',
   'http://hotelfourteen.shop',
   'http://121.170.35.72:3000',
-  'http://*:3000'
 ]
 
 app.use(cors({
