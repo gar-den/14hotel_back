@@ -4,11 +4,29 @@ const app = express();
 const port = 3000;
 
 const cors = require("cors");
-app.use(cors());
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://hotelfourteen.shop',
+  'http://121.170.35.72:3000',
+  'http://*:3000'
+]
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if(!origin) return callback(null, true);
+
+    if(allowedOrigins.indexOf(origin) === -1) {
+      const message = "The CORS policy for this site does not allow access from the specified origin";
+
+      return callback(new Error(message), false);
+    }
+
+    return callback(null, true);
+  }
+}));
 
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-/////
 
 const connect = require("./schemas");
 connect();
