@@ -1,7 +1,8 @@
 # hotelfourteen
-[API description](https://app.swaggerhub.com/apis/nameisgarden/hotelfourteen/1.0.0#/)
-[Notion](https://wirehaired-snapper-f57.notion.site/14-bef603fb4ea843afaf2260611b069568)
-[API description - excel](https://docs.google.com/spreadsheets/d/1usBjmmgWVsJUdbYs7MWrciHbmfWh6AWj_Iobt9jD5FY/edit?usp=sharing)
+- [API description](https://app.swaggerhub.com/apis/nameisgarden/hotelfourteen/1.0.0#/)
+- [Notion](https://wirehaired-snapper-f57.notion.site/14-bef603fb4ea843afaf2260611b069568)
+- [API description - excel](https://docs.google.com/spreadsheets/d/1usBjmmgWVsJUdbYs7MWrciHbmfWh6AWj_Iobt9jD5FY/edit?usp=sharing)
+
 
 - Node.js express framework + REACT
 - mongodb
