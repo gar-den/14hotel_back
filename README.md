@@ -1,4 +1,6 @@
 # hotelfourteen
+[API description](https://app.swaggerhub.com/apis/nameisgarden/hotelfourteen/1.0.0#/)
+
 - Node.js express framework + REACT
 - mongodb
 
@@ -37,7 +39,7 @@
 
 # 배운 점, 느낀 점
 - 이정원
-[API description](https://app.swaggerhub.com/apis/nameisgarden/hotelfourteen/1.0.0#/)
+
 
 - 박정훈
 
